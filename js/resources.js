@@ -3,6 +3,7 @@ game.resources = [
 	/* Graphics. 
 	 * @example */
  	{name: "floor", type:"image", src: "assets/floor.png"},
+ 	{name: "splash", type:"image", src: "assets/splash.jpg"},
     {name: "ledder", type:"image", src: "assets/ledder.png"},
     {name: "ledder-wall", type: "image", src: "assets/ledder-wall.png"},
     {name: "friends", type:"image", src: "assets/friends.png"},
