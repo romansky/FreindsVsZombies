@@ -46,7 +46,7 @@ var game = {
         me.state.set(me.state.PLAY, new game.PlayScreen());
 
         // add our player entity in the entity pool
-        me.entityPool.add("mainPlayer", game.PlayerEntity);
+        me.entityPool.add("friend1", game.FriendEntity);
 
         // enable the keyboard
         // me.input.bindKey(me.input.KEY.LEFT,  "left");
