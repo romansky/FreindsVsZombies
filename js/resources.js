@@ -5,11 +5,12 @@ game.resources = [
  	{name: "floor", type:"image", src: "assets/floor.png"},
     {name: "ledder", type:"image", src: "assets/ledder.png"},
     {name: "ledder-wall", type: "image", src: "assets/ledder-wall.png"},
+    {name: "friends", type:"image", src: "assets/friends.png"},
 
-	/* Atlases 
-	 * @example
-	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
-	 */
+    /* Atlases
+     * @example
+     * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
+     */
 		
 	/* Maps. 
 	 * @example
