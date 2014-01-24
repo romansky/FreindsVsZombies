@@ -45,6 +45,8 @@ var game = {
         me.state.set(me.state.MENU, new game.TitleScreen());
         me.state.set(me.state.PLAY, new game.PlayScreen());
 
+        me.state.transition("fade", "#FFFFFF", 250);
+
         // add our player entity in the entity pool
         me.entityPool.add("friend1", game.FriendEntity);
 
@@ -80,7 +82,7 @@ game.TitleScreen = me.ScreenObject.extend({
     onResetEvent: function() {
         if (this.title == null) {
             // init stuff if not yet done
-            this.title = me.loader.getImage("splash");
+            this.title = me.loader.getImage("floor");
             // font to display the menu items
             this.font = new me.BitmapFont("32x32_font", 32);
  
