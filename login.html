@@ -2,8 +2,8 @@
 <head></head>
 <body>
 <div id="fb-root"></div>
-<script src="zepto.min.js"></script>
-<script src="underscore.min.js"></script>
+<script src="lib/zepto.min.js"></script>
+<script src="lib/underscore.min.js"></script>
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -76,6 +76,7 @@
   function onConnected() {
     $('#fbLogin').hide();
     $('#logout').show();
+    $('#selectedFriendsPane h3').html('Selecting friends...');
     console.log('Welcome!  Fetching your information.... ');
     selectFriends();
   }
@@ -92,6 +93,7 @@
         randomIndex = _.random(0, friends.length - 1);
         selectedFriends.push(friends.splice(randomIndex, 1)[0]); // Extract one friend from the friend list and add to selectedFriends
       }
+      $('#selectedFriendsPane h3').html('Selected friends:');
       friendList.empty();
       _.each(selectedFriends, function (friend) {
         console.log('Selected ' + friend.name);
@@ -102,7 +104,7 @@
 </script>
 
 <div id="selectedFriendsPane">
-  <h3>Selected friends</h3>
+  <h3>Logging in...</h3>
   <ul>
   </ul>
 </div>
