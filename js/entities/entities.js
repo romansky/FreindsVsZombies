@@ -50,7 +50,7 @@ game.FriendEntity = me.ObjectEntity.extend({
      ------ */
     update: function() {
 
-        if (this.onladder) {
+        if (this.onladder) { //todo: check if object on ladder top
             this.framesOnLadder += 1;
             if (this.framesOnLadder === 1) {
                 this.framesOffLadder = 0;
@@ -93,7 +93,10 @@ game.FriendEntity = me.ObjectEntity.extend({
 
         // else inform the engine we did not perform
         // any update (e.g. position, animation)
-        return false;
+        this.choseDirection();
+        this.doWalk();
+        return true;
+        //return false;
     }
 
 });
