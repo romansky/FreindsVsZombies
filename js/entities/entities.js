@@ -14,6 +14,9 @@ game.FriendEntity = me.ObjectEntity.extend({
         this.parent(x, y, settings);
         console.log('FriendEntity.init, settings = ' + JSON.stringify(settings));
 
+        this.framesOnLadder = 0;
+        this.framesOffLadder = 0;
+
         this.collidable = true;
         this.collisionBox.width = 16;
         this.setVelocity(3, 0);
@@ -29,11 +32,19 @@ game.FriendEntity = me.ObjectEntity.extend({
     update: function() {
 
         if (this.onladder) {
-            this.setVelocity(0, 3);
-            this.doClimb(true);
+            this.framesOnLadder += 1;
+            this.framesOffLadder = 0;
+            if (this.framesOnLadder === 3) {
+                this.setVelocity(0, 3);
+                this.doClimb(true);
+            }
         } else {
-            this.setVelocity(3, 0);
-            this.doWalk(false);
+            this.framesOnLadder = 0;
+            this.framesOffLadder += 1;
+            if (this.framesOffLadder === 3) {
+                this.setVelocity(3, 0.1);
+                this.doWalk(false);
+            }
         }
 
         // check & update player movement

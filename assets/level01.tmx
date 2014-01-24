@@ -44,7 +44,7 @@
   </data>
  </layer>
  <objectgroup name="Entities" width="25" height="18">
-  <object name="friend1" x="37" y="503" width="3" height="32">
+  <object name="friend1" x="32" y="512" width="32" height="32">
    <properties>
     <property name="image" value="friend1"/>
     <property name="spritewidth" value="32"/>
