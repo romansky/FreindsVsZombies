@@ -1,7 +1,7 @@
 /*------------------- 
- a player entity
+ a friend entity
  -------------------------------- */
-game.PlayerEntity = me.ObjectEntity.extend({
+game.FriendEntity = me.ObjectEntity.extend({
 
     /* -----
 
@@ -12,12 +12,12 @@ game.PlayerEntity = me.ObjectEntity.extend({
     init: function(x, y, settings) {
         // call the constructor
         this.parent(x, y, settings);
+        console.log('FriendEntity.init, settings = ' + JSON.stringify(settings));
 
-        // set the default horizontal & vertical speed (accel vector)
-        this.setVelocity(3, 15);
-
-        // set the display to follow our position on both axis
-        me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+        this.collidable = true;
+        this.collisionBox.width = 16;
+        this.setVelocity(3, 0);
+        this.doWalk(false); // false = walk right
 
     },
 
@@ -28,36 +28,19 @@ game.PlayerEntity = me.ObjectEntity.extend({
      ------ */
     update: function() {
 
-        if (me.input.isKeyPressed('left')) {
-            // flip the sprite on horizontal axis
-            this.flipX(true);
-            // update the entity velocity
-            this.vel.x -= this.accel.x * me.timer.tick;
-        } else if (me.input.isKeyPressed('right')) {
-            // unflip the sprite
-            this.flipX(false);
-            // update the entity velocity
-            this.vel.x += this.accel.x * me.timer.tick;
+        if (this.onladder) {
+            this.setVelocity(0, 3);
+            this.doClimb(true);
         } else {
-            this.vel.x = 0;
-        }
-        if (me.input.isKeyPressed('jump')) {
-            // make sure we are not already jumping or falling
-            if (!this.jumping && !this.falling) {
-                // set current vel to the maximum defined value
-                // gravity will then do the rest
-                this.vel.y = -this.maxVel.y * me.timer.tick;
-                // set the jumping flag
-                this.jumping = true;
-            }
-
+            this.setVelocity(3, 0);
+            this.doWalk(false);
         }
 
         // check & update player movement
         this.updateMovement();
 
         // update animation if necessary
-        if (this.vel.x!=0 || this.vel.y!=0) {
+        if (this.vel.x !== 0 || this.vel.y !== 0) {
             // update object animation
             this.parent();
             return true;

@@ -6,7 +6,7 @@ game.resources = [
  	{name: "splash", type:"image", src: "assets/splash.jpg"},
     {name: "ledder", type:"image", src: "assets/ledder.png"},
     {name: "ledder-wall", type: "image", src: "assets/ledder-wall.png"},
-    {name: "friends", type:"image", src: "assets/friends.png"},
+    {name: "friend1", type:"image", src: "assets/zombies-sprint.png"},
     {name: "helicopter", type:"image", src: "assets/helicopter.png"},
     {name: "door", type: "image", src: "assets/door.png"},
 
