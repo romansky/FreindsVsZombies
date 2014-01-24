@@ -4,6 +4,7 @@ game.PlayScreen = me.ScreenObject.extend({
 	 */
 	onResetEvent: function() {
         // load a level
+        me.audio.playTrack("song2");
         me.levelDirector.loadLevel("level01");
 
 		// reset the score
