@@ -7,6 +7,8 @@ game.resources = [
     {name: "ledder", type:"image", src: "assets/ledder.png"},
     {name: "ledder-wall", type: "image", src: "assets/ledder-wall.png"},
     {name: "friends", type:"image", src: "assets/friends.png"},
+    {name: "helicopter", type:"image", src: "assets/helicopter.png"},
+    {name: "door", type: "image", src: "assets/door.png"},
 
     /* Atlases
      * @example
