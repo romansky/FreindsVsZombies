@@ -44,12 +44,18 @@
   </data>
  </layer>
  <objectgroup name="Entities" width="25" height="18">
-  <object name="mainPlayer" x="37" y="503" width="23" height="36">
+  <object name="friend1" x="37" y="503" width="23" height="36">
    <properties>
     <property name="image" value="friends.png"/>
-    <property name="spritewidth" value="64"/>
+    <property name="spritewidth" value="32"/>
    </properties>
   </object>
+  <object name="friend2" x="65" y="504" width="19" height="34">
+   <properties>
+    <property name="image" value="friends.png"/>
+   </properties>
+  </object>
+  <object name="friend3" x="89" y="503" width="20" height="35"/>
  </objectgroup>
  <layer name="collision" width="25" height="18">
   <data encoding="base64">
