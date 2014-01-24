@@ -2,7 +2,7 @@ game.resources = [
 
 	/* Graphics. 
 	 * @example */
-	{name: "floor", type:"image", src: "assets/floor.png"},
+ 	{name: "floor", type:"image", src: "assets/floor.png"},
     {name: "ledder", type:"image", src: "assets/ledder.png"},
     {name: "ledder-wall", type: "image", src: "assets/ledder-wall.png"},
 
