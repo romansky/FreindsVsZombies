@@ -46,16 +46,6 @@ var game = {
     "loaded" : function () {
         me.state.set(me.state.MENU, new game.TitleScreen());
         me.state.set(me.state.PLAY, new game.PlayScreen());
-        // add our player entity in the entity pool
-        me.entityPool.add("friend1", game.FriendEntity);
-
-        me.entityPool.add("zombie1", game.ZombieEntity, true);
-
-        me.entityPool.add("zombie2", game.ZombieEntity, true);
-
-        me.entityPool.add("zombie3", game.ZombieEntity, true);
-
-        me.entityPool.add("zombie4", game.ZombieEntity, true);
         // setInterval(this.createZombie, this.zombieInterval);
 
         me.state.transition("fade", "#FFFFFF", 250);
@@ -68,14 +58,5 @@ var game = {
         // Start the game.
         me.state.change(me.state.MENU);
         
-    },
-
-    createZombie: function() {
-        var min = 1;
-        var max = 4;
-        var random = Math.floor(Math.random() * (max - min + 1)) + min;
-        var zombieObj = me.entityPool.newInstanceOf("zombie" + random);
-        me.game.remove(zombieObj);
-        me.entityPool.add("zombie" + random, game.ZombieEntity,true);
     }
 };
