@@ -25,7 +25,8 @@ game.FriendEntity = me.ObjectEntity.extend({
     },
 
     doWalk: function (goLeft) {
-        var xVelocity;
+        var xVelocity,
+            currentDirection;
         if (goLeft === true) {
             this.chosenDirection = -1;
         } else if (goLeft === false) {
@@ -35,7 +36,11 @@ game.FriendEntity = me.ObjectEntity.extend({
         }
         this.setVelocity(1, 3);
         this.vel.x = this.getXVelocity();
-        this.parent(this.chosenDirection === -1); // param = walk left
+        currentDirection = (this.chosenDirection === -1); // true if left, false if right
+        if (this.previousDirection !== currentDirection) {
+            this.parent(currentDirection); // param = walk left
+            this.previousDirection = currentDirection;
+        }
     },
 
     deterministicChoices: [1, 1, 1, -1, 1, 1],
