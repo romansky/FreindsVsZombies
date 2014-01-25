@@ -91,7 +91,7 @@ window.fbAsyncInit = function() {
                 console.log('Selected ' + friend.name);
                 var src = 'http://graph.facebook.com/' + friend.id + '/picture?width=100&height=100';
                 friendList.append('<img src="' + src + '" title="' + friend.name + '" />');
-                $('#friend' + index).attr('src', src.replace(/100/g, '32'));
+                $('#friend' + (index+1)).attr('src', src.replace(/100/g, '32'));
             });
         });
     }
