@@ -9,17 +9,17 @@ game.FriendEntity = me.ObjectEntity.extend({
 
      ------ */
 
-    init: function(x, y, settings) {
+    init: function (x, y, settings) {
         // call the constructor
         this.parent(x, y, settings);
         console.log('FriendEntity.init, settings = ' + JSON.stringify(settings));
 
-        this.framesOnLadder = 0;
         this.framesOffLadder = 21;
 
         this.collidable = true;
         this.collisionBox.width = 16;
         this.doWalk(false);
+        me.input.registerPointerEvent('mousedown', me.game.viewport, this.onStartEvent.bind(this));
     },
 
     doWalk: function (goLeft) {
@@ -46,6 +46,16 @@ game.FriendEntity = me.ObjectEntity.extend({
 
     getXVelocity: function () {
         return 1 * this.chosenDirection;
+    },
+
+    onStartEvent: function (e) {
+        var c2 = Math.pow(e.gameX - this.pos.x, 2) + Math.pow(e.gameY - this.pos.y, 2);
+
+        var c = Math.sqrt(c2);
+        console.log(c);
+        if (c < 80) {
+            alert('you clicked me!!!');
+        }
     },
 
     // Returns the current ladder, or undefined if we're not on a ladder
@@ -86,6 +96,7 @@ game.FriendEntity = me.ObjectEntity.extend({
                 this.doClimb(true);
             }
         } else {
+            this.framesOnLadder = 0;
             this.framesOffLadder += 1;
             if (this.framesOffLadder === 1) {
                 this.doWalk();
@@ -98,9 +109,6 @@ game.FriendEntity = me.ObjectEntity.extend({
     
         // check & update player movement
         this.updateMovement();
-        if (!this.initialX) {
-            this.initialX = this.pos.x;
-        }
 
         // update animation if necessary
         if (this.vel.x !== 0 || this.vel.y !== 0) {
