@@ -7,8 +7,8 @@
 // for any authentication related change, such as login, logout or session refresh. This means that
 // whenever someone who was previously logged out tries to log in again, the correct case below
 // will be handled.
-alert(">>>>>>>>>>>>");
-$(document).ready(function () {
+
+window.fbAsyncInit = function() {
 
 	console.log(FB);
     FB.init({
@@ -105,4 +105,4 @@ $(document).ready(function () {
         });
     });
     // Execute some code here
-});
+};
