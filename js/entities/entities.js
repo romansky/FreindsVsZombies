@@ -95,6 +95,14 @@ game.FriendEntity = me.ObjectEntity.extend({
 
      ------ */
     update: function() {
+        if (this.collide()) {
+            if (!this.gameOver) {
+                alert('Friend killed! Game over!');
+                this.gameOver = true;
+                me.levelDirector.reloadLevel();
+            }
+            return;
+        }
         if (this.safe) {
             return;
         }
