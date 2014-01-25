@@ -4,6 +4,7 @@
 game.ZombieEntity = me.ObjectEntity.extend({
     init: function(x, y, settings) {
         // call the constructor
+        settings.type = "zombie";
         this.parent(x, y, settings);
         console.log('ZombieEntity.init, settings = ' + JSON.stringify(settings));
 
