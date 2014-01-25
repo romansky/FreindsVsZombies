@@ -1,6 +1,8 @@
 /*------------------- 
  a friend entity
  -------------------------------- */
+window.helicopterDoorSize = 0;
+
 game.FriendEntity = me.ObjectEntity.extend({
 
     /* -----
@@ -86,10 +88,14 @@ game.FriendEntity = me.ObjectEntity.extend({
 
      ------ */
     update: function() {
-        if (this.pos.y < 70 && this.pos.x < 550 && this.pos.x > 530) {
+        if (this.safe) {
+            return;
+        }
+        if (this.pos.y < 70 && Math.abs(this.pos.x - 540) <= window.helicopterDoorSize) {
             // We're at the helicopter
             console.log('a friend reached the helicopter');
-            me.game.remove(this);
+            this.safe = true;
+            window.helicopterDoorSize += 10; // So the next friend stops a bit sooner
             return;
         }
     
