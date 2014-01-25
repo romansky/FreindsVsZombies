@@ -11,7 +11,8 @@ game.ZombieEntity = me.ObjectEntity.extend({
 
         this.collidable = true;
         this.collisionBox.width = 16;
-        this.doWalk(false);
+        this.choseDirection();
+        this.doWalk();
         me.input.registerPointerEvent('mousedown', me.game.viewport, this.onStartEvent.bind(this));
     },
 
@@ -51,23 +52,6 @@ game.ZombieEntity = me.ObjectEntity.extend({
         }
     },
 
-    // Returns the current ladder, or undefined if we're not on a ladder
-    getCurrentLadder: function () {
-        var collision = this.collisionMap.checkCollision(this.collisionBox, this.vel);
-        if (collision.yprop && collision.yprop.isLadder) {
-            // console.log('collision = ' + JSON.stringify(collision));
-            return collision.ytile;
-        } else {
-            // No ladder
-            if (collision.xprop && collision.xprop.isSolid) {
-                // We hit a wall
-                this.chosenDirection *= -1;
-                this.doWalk();
-            }
-            return undefined;
-        }
-    },
-
     stopWalk: function () {
         this.chosenDirection = 0;
         this.vel.x = 0;
@@ -79,27 +63,6 @@ game.ZombieEntity = me.ObjectEntity.extend({
 
      ------ */
     update: function() {
-        var ladder = this.getCurrentLadder();
-
-        if (ladder) {
-            this.framesOnLadder += 1;
-            if (this.vel.x !== 0 && ladder.pos.x === this.pos.x) {
-                this.framesOffLadder = 0;
-                this.stopWalk();
-                this.doClimb(true);
-            }
-        } else {
-            this.framesOnLadder = 0;
-            this.framesOffLadder += 1;
-            if (this.framesOffLadder === 1) {
-                this.doWalk();
-            }
-            if (this.framesOffLadder === 20) {
-                // We are now definitely off the ladder, start checking for the next one
-                this.framesOnLadder = 0;
-            }
-        }
-
         // check & update player movement
         this.updateMovement();
 
@@ -108,6 +71,9 @@ game.ZombieEntity = me.ObjectEntity.extend({
             // update object animation
             this.parent();
             return true;
+        } else {
+            this.choseDirection();
+            this.doWalk();
         }
 
         // else inform the engine we did not perform
