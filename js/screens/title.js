@@ -58,12 +58,13 @@ game.TitleScreen = me.ScreenObject.extend({
     update: function () {
         // enter pressed ?
         if (me.input.isKeyPressed('enter')) {
-            FB.Event.subscribe('auth.authResponseChange', function (response) {
-                if (response.status === 'connected') {
 
-                    me.state.change(me.state.PLAY);
-                }
-            });
+			FB.getLoginStatus(function(response) {
+				if (response.status == "connected") {
+					$('#selectedFriendsPane').hide();
+					me.state.change(me.state.PLAY);
+				}
+			});
         }
         return true;
     },

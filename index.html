@@ -8,11 +8,30 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	</head>
 	<body>
+
+	<div id="fb-root"></div>
+
+	<div id="selectedFriendsPane">
+		<h3></h3>
+		<ul>
+		</ul>
+	</div>
+	<div id="fbLogin">
+		<!--<fb:login-button width="200"></fb:login-button>-->
+		<div>
+			<a href="#" class="button"><span>Login With FaceBook</span></a>
+		</div>
+	</div>
+	<button id="logout" style="display:none">Logout</button>
+
 		<!-- Canvas placeholder -->
 		<div id="screen"></div>
 
-		<!-- underscore Library -->
-		<script type="text/javascript" src="lib/underscore.min.js"></script>
+
+		<!-- external libs -->
+		<script src="lib/zepto.min.js"></script>
+		<script src="lib/underscore.min.js"></script>
+		<script src="js/fb.js"></script>
 
 		<!-- melonJS Library -->
 		<script type="text/javascript" src="lib/melonJS-0.9.11.js"></script>
@@ -55,11 +74,14 @@
 					});
 				}
 			});
-			// Load the facebook SDK asynchronously
-			(function(d){
+			(function (d) {
 				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-				if (d.getElementById(id)) {return;}
-				js = d.createElement('script'); js.id = id; js.async = true;
+				if (d.getElementById(id)) {
+					return;
+				}
+				js = d.createElement('script');
+				js.id = id;
+				js.async = true;
 				js.src = "//connect.facebook.net/en_US/all.js";
 				ref.parentNode.insertBefore(js, ref);
 			}(document));
