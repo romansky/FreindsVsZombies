@@ -9,6 +9,7 @@ game.resources = [
     {name: "friend1", type:"image", src: "assets/friends.png"},
     {name: "helicopter", type:"image", src: "assets/helicopter.png"},
     {name: "door", type: "image", src: "assets/door.png"},
+    {name: "zombie", type: "image", src: "assets/zombies-left.png"},
 
     {name: "32x32_font", type:"image", src: "assets/32x32_font.png"},
 
