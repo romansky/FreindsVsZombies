@@ -79,6 +79,18 @@
     <property name="spritewidth" value="32"/>
    </properties>
   </object>
+  <object name="friend2" x="64" y="512" width="32" height="32">
+   <properties>
+    <property name="image" value="friend1"/>
+    <property name="spritewidth" value="32"/>
+   </properties>
+  </object>
+  <object name="friend3" x="96" y="512" width="32" height="32">
+   <properties>
+    <property name="image" value="friend1"/>
+    <property name="spritewidth" value="32"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collision" width="25" height="18">
   <data encoding="base64">
