@@ -53,7 +53,7 @@ game.FriendEntity = me.ObjectEntity.extend({
 
         var c = Math.sqrt(c2);
         console.log(c);
-        if (c < 80) {
+        if (c < 80 && !this.onladder) {
             console.log('Friend touched by click');
             if (e.gameX < this.pos.x) {
                 // Click on our left, go right

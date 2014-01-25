@@ -48,7 +48,7 @@ game.ZombieEntity = me.ObjectEntity.extend({
         var c = Math.sqrt(c2);
         console.log(c);
         if (c < 80) {
-            console.log('Friend touched by click');
+            console.log('Zombie touched by click');
             if (e.gameX < this.pos.x) {
                 // Click on our left, go right
                 this.doWalk(false);
