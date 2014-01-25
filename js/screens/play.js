@@ -1,4 +1,8 @@
 game.PlayScreen = me.ScreenObject.extend({
+
+	hog : null,
+	hogTo : null,
+
     init: function() {
         // add our player entity in the entity pool
         me.entityPool.add("friend1", game.FriendEntity);
@@ -6,7 +10,37 @@ game.PlayScreen = me.ScreenObject.extend({
         me.entityPool.add("zombie2", game.ZombieEntity, true);
         me.entityPool.add("zombie3", game.ZombieEntity, true);
         me.entityPool.add("zombie4", game.ZombieEntity, true);
+
+		me.input.registerPointerEvent('mousedown', me.game.viewport, this.onStartEvent.bind(this));
     },
+
+	onStartEvent: function (e) {
+
+		if (this.hog) {
+			me.game.world.removeChild(this.hog);
+			clearTimeout(this.hogTo);
+			this.hog = null;
+		}
+
+		this.hog = new (me.AnimationSheet.extend({
+			init: function() {
+				this.parent(e.gameX - (64/2), e.gameY - (64/2), me.loader.getImage('hog'), 64, 64);
+				this.addAnimation('running', [0,1,2,3,4], 100);
+				this.setCurrentAnimation('running');
+				this.z = 1000;
+			}
+		}));
+
+		var that = this;
+		this.hogTo = setTimeout(function(){
+			me.game.world.removeChild(that.hog);
+			that.hog = null;
+			that.hogTo = null;
+		},800);
+
+		me.game.world.addChild(this.hog);
+
+	},
 
 	/**
 	 *  action to perform on state change
