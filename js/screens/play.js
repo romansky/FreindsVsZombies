@@ -8,6 +8,8 @@ game.PlayScreen = me.ScreenObject.extend({
     init: function() {
         // add our player entity in the entity pool
         me.entityPool.add("friend1", game.FriendEntity);
+        me.entityPool.add("friend2", game.FriendEntity);
+        me.entityPool.add("friend3", game.FriendEntity);
         me.entityPool.add("zombie1", game.ZombieEntity, true);
         me.entityPool.add("zombie2", game.ZombieEntity, true);
         me.entityPool.add("zombie3", game.ZombieEntity, true);
