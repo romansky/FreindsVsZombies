@@ -21,12 +21,12 @@ game.resources = [
 	 * @example
 	 */
     {name: "level01", type: "tmx", src: "assets/level01.tmx"},
+    
 
 
-	/* Background music. 
-	 * @example
-	 * {name: "example_bgm", type: "audio", src: "data/bgm/", channel : 1},
-	 */	
+	 //Background music. 
+	 {name: "song2", type: "audio", src: "sound/", channel : 1}
+	 	
 
 	/* Sound effects. 
 	 * @example
