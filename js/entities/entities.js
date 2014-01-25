@@ -61,9 +61,9 @@ game.FriendEntity = me.ObjectEntity.extend({
     // Returns the current ladder, or undefined if we're not on a ladder
     getCurrentLadder: function () {
         var collision = this.collisionMap.checkCollision(this.collisionBox, this.vel);
-        if (collision.yprop && collision.yprop.isLadder) {
+        if (collision.yprop && (collision.yprop.isLadder || collision.yprop.isTopLadder)) {
             // console.log('collision = ' + JSON.stringify(collision));
-            return collision.ytile;
+            return _.extend(collision.ytile, collision.yprop);
         } else {
             // No ladder
             if (collision.xprop && collision.xprop.isSolid) {
@@ -89,21 +89,19 @@ game.FriendEntity = me.ObjectEntity.extend({
         var ladder = this.getCurrentLadder();
 
         if (ladder) {
-            this.framesOnLadder += 1;
-            if (this.vel.x !== 0 && ladder.pos.x === this.pos.x) {
-                this.framesOffLadder = 0;
-                this.stopWalk();
-                this.doClimb(true);
-            }
-        } else {
-            this.framesOnLadder = 0;
-            this.framesOffLadder += 1;
-            if (this.framesOffLadder === 1) {
-                this.doWalk();
-            }
-            if (this.framesOffLadder === 20) {
-                // We are now definitely off the ladder, start checking for the next one
-                this.framesOnLadder = 0;
+            if (!ladder.isTopLadder) {
+                // Normal ladder
+                if (this.vel.x !== 0 && ladder.pos.x === this.pos.x) {
+                    this.framesOffLadder = 0;
+                    this.stopWalk();
+                    this.doClimb(true);
+                }
+            } else {
+                // Top ladder
+                if (this.chosenDirection === 0 && ladder.pos.y > this.pos.y) { // y axis is down, check that we're above ladder
+                    // this.vel.y = 0;
+                    this.doWalk();
+                }
             }
         }
     
