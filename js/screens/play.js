@@ -34,3 +34,13 @@ game.PlayScreen = me.ScreenObject.extend({
 		me.game.world.removeChild(this.HUD);
 	}
 });
+
+window.createZombie = function () {
+	var group = me.game.currentLevel.getObjectGroups()[0];
+	var zombieObject = _.find(group.objects, function isZombie(object) {
+		return object.image === "zombie";
+	});
+	var entity = me.entityPool.newInstanceOf("zombie1", 416, 192, zombieObject);
+	entity.z = group.z;
+	me.game.world.addChild(entity);
+};
