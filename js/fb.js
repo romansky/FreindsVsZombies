@@ -7,9 +7,10 @@
 // for any authentication related change, such as login, logout or session refresh. This means that
 // whenever someone who was previously logged out tries to log in again, the correct case below
 // will be handled.
-
+alert(">>>>>>>>>>>>");
 $(document).ready(function () {
 
+	console.log(FB);
     FB.init({
         appId: '611076678966646',
         status: true, // check login status
@@ -64,17 +65,6 @@ $(document).ready(function () {
     });
 
 // Load the SDK asynchronously
-    (function (d) {
-        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        if (d.getElementById(id)) {
-            return;
-        }
-        js = d.createElement('script');
-        js.id = id;
-        js.async = true;
-        js.src = "//connect.facebook.net/en_US/all.js";
-        ref.parentNode.insertBefore(js, ref);
-    }(document));
 
     function onConnected() {
         $('#fbLogin').hide();
