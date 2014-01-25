@@ -24,7 +24,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		this.hog = new (me.AnimationSheet.extend({
 			init: function() {
-				this.parent(e.gameX - (32/2), e.gameY - (32/2), me.loader.getImage('hog'), 32, 32);
+				this.parent(e.gameX - (64/2), e.gameY - (64/2), me.loader.getImage('hog'), 64, 64);
 				this.addAnimation('running', [0,1,2,3,4], 100);
 				this.setCurrentAnimation('running');
 				this.z = 1000;
