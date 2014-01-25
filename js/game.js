@@ -46,7 +46,7 @@ var game = {
         me.state.set(me.state.PLAY, new game.PlayScreen());
         // add our player entity in the entity pool
         me.entityPool.add("friend1", game.FriendEntity);
-
+        me.entityPool.add("zombie1", game.ZombieEntity);
         me.state.transition("fade", "#FFFFFF", 250);
 
         // enable the keyboard
