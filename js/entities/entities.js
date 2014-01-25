@@ -36,7 +36,7 @@ game.FriendEntity = me.ObjectEntity.extend({
         this.parent(this.chosenDirection === -1); // param = walk left
     },
 
-    deterministicChoices: [1, 1, -1, 1, 1, 1],
+    deterministicChoices: [1, 1, 1, -1, 1, 1],
 
     choseDirection: function () {
         this.chosenDirection = -1 + _.random(0, 1) * 2; // Randomize either -1 or 1
@@ -86,6 +86,13 @@ game.FriendEntity = me.ObjectEntity.extend({
 
      ------ */
     update: function() {
+        if (this.pos.y < 70 && this.pos.x < 550 && this.pos.x > 530) {
+            // We're at the helicopter
+            console.log('a friend reached the helicopter');
+            me.game.remove(this);
+            return;
+        }
+    
         var ladder = this.getCurrentLadder();
 
         if (ladder) {
