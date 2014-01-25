@@ -10,7 +10,7 @@ game.resources = [
     {name: "helicopter", type:"image", src: "assets/helicopter.png"},
     {name: "door", type: "image", src: "assets/door.png"},
 
-    {name: "32x32_font",          type:"image", src: "assets/32x32_font.png"},
+    {name: "32x32_font", type:"image", src: "assets/32x32_font.png"},
 
     /* Atlases
      * @example
