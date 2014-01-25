@@ -10,23 +10,25 @@ game.FriendEntity = me.ObjectEntity.extend({
      ------ */
 
     init: function(x, y, settings) {
-        this.chosenDirection = 1; // right
         // call the constructor
         this.parent(x, y, settings);
         console.log('FriendEntity.init, settings = ' + JSON.stringify(settings));
 
         this.framesOnLadder = 0;
-        this.framesOffLadder = 15;
+        this.framesOffLadder = 21;
 
         this.collidable = true;
         this.collisionBox.width = 16;
-        this.doWalk();
-
+        this.doWalk(false);
     },
 
     doWalk: function (goLeft) {
         var xVelocity;
-        if (this.chosenDirection === 0) {
+        if (goLeft === true) {
+            this.chosenDirection = -1;
+        } else if (goLeft === false) {
+            this.chosenDirection = 1;
+        } else if (this.chosenDirection === 0) {
             this.choseDirection();
         }
         this.setVelocity(1, 3);
@@ -46,27 +48,42 @@ game.FriendEntity = me.ObjectEntity.extend({
         return 1 * this.chosenDirection;
     },
 
+    // Returns the current ladder, or undefined if we're not on a ladder
+    getCurrentLadder: function () {
+        var collision = this.collisionMap.checkCollision(this.collisionBox, this.vel);
+        if (collision.yprop && collision.yprop.isLadder) {
+            // console.log('collision = ' + JSON.stringify(collision));
+            return collision.ytile;
+        } else {
+            // No ladder
+            if (collision.xprop && collision.xprop.isSolid) {
+                // We hit a wall
+                this.chosenDirection *= -1;
+                this.doWalk();
+            }
+            return undefined;
+        }
+    },
+
+    stopWalk: function () {
+        this.chosenDirection = 0;
+        this.vel.x = 0;
+    },
+
     /* -----
 
      update the player pos
 
      ------ */
     update: function() {
+        var ladder = this.getCurrentLadder();
 
-        if (this.onladder) { //todo: check if object on ladder top
+        if (ladder) {
             this.framesOnLadder += 1;
-            if (this.framesOnLadder === 1) {
-                // Start diagonal motion
+            if (this.vel.x !== 0 && ladder.pos.x === this.pos.x) {
                 this.framesOffLadder = 0;
-                this.setVelocity(this.getXVelocity(), 1);
+                this.stopWalk();
                 this.doClimb(true);
-            }
-            if (this.framesOnLadder === 15) {
-                // We should be well centered on the ladder now, climb straight up
-                console.log('undecide');
-                this.chosenDirection = 0; // undecided
-                this.doClimb(true);
-                this.setVelocity(this.getXVelocity(), 1);
             }
         } else {
             this.framesOffLadder += 1;
@@ -78,11 +95,7 @@ game.FriendEntity = me.ObjectEntity.extend({
                 this.framesOnLadder = 0;
             }
         }
-        if (this.initialX === this.pos.x) {
-            this.chosenDirection = 1;
-            this.doWalk();
-        }
-
+    
         // check & update player movement
         this.updateMovement();
         if (!this.initialX) {
@@ -98,10 +111,10 @@ game.FriendEntity = me.ObjectEntity.extend({
 
         // else inform the engine we did not perform
         // any update (e.g. position, animation)
-        this.choseDirection();
-        this.doWalk();
-        return true;
-        //return false;
+        // this.choseDirection();
+        // this.doWalk();
+        // return true;
+        return false;
     }
 
 });
