@@ -9,7 +9,7 @@ game.FriendEntity = me.ObjectEntity.extend({
 
      ------ */
 
-    init: function (x, y, settings) {
+    init: function(x, y, settings) {
         // call the constructor
         this.parent(x, y, settings);
         console.log('FriendEntity.init, settings = ' + JSON.stringify(settings));
@@ -19,33 +19,17 @@ game.FriendEntity = me.ObjectEntity.extend({
 
         this.collidable = true;
         this.collisionBox.width = 16;
-        this.setVelocity(0.5, 0);
+        this.setVelocity(3, 0);
         this.doWalk(false); // false = walk right
 
-        me.input.registerPointerEvent('mousedown', me.game.viewport, this.onStartEvent.bind(this));
-
     },
 
-    onStartEvent: function (e) {
-        var c2 = Math.pow(e.gameX - this.pos.x, 2) + Math.pow(e.gameY - this.pos.y, 2);
-
-        var c = Math.sqrt(c2);
-        console.log(c);
-        if (c < 80) {
-            alert('you clicked me!!!');
-        }
-
-        if ((e.gameX >= this.pos.x - 10 && e.gameX <= this.pox.x + this.width + 10)
-            && (e.gameY >= this.pos.y - 10 && e.gameY <= this.pos.y + this.height + 10))
-            console.log("e: ", e);
-        console.log("this: ", this);
-    },
     /* -----
 
      update the player pos
 
      ------ */
-    update: function () {
+    update: function() {
 
         if (this.onladder) {
             this.framesOnLadder += 1;
@@ -72,7 +56,6 @@ game.FriendEntity = me.ObjectEntity.extend({
             this.parent();
             return true;
         }
-
 
         // else inform the engine we did not perform
         // any update (e.g. position, animation)
