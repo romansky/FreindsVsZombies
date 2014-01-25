@@ -34,8 +34,11 @@ game.FriendEntity = me.ObjectEntity.extend({
         this.parent(this.chosenDirection === -1); // param = walk left
     },
 
+    deterministicChoices: [1, 1, -1, 1, 1, 1],
+
     choseDirection: function () {
         this.chosenDirection = -1 + _.random(0, 1) * 2; // Randomize either -1 or 1
+        // this.chosenDirection = this.deterministicChoices.shift();
         console.log('decided ' + this.chosenDirection);
     },
 
@@ -53,11 +56,13 @@ game.FriendEntity = me.ObjectEntity.extend({
         if (this.onladder) { //todo: check if object on ladder top
             this.framesOnLadder += 1;
             if (this.framesOnLadder === 1) {
+                // Start diagonal motion
                 this.framesOffLadder = 0;
                 this.setVelocity(this.getXVelocity(), 1);
                 this.doClimb(true);
             }
             if (this.framesOnLadder === 15) {
+                // We should be well centered on the ladder now, climb straight up
                 console.log('undecide');
                 this.chosenDirection = 0; // undecided
                 this.doClimb(true);
@@ -66,10 +71,10 @@ game.FriendEntity = me.ObjectEntity.extend({
         } else {
             this.framesOffLadder += 1;
             if (this.framesOffLadder === 1) {
-                this.choseDirection();
                 this.doWalk();
             }
             if (this.framesOffLadder === 20) {
+                // We are now definitely off the ladder, start checking for the next one
                 this.framesOnLadder = 0;
             }
         }
