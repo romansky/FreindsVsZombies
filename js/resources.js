@@ -25,7 +25,7 @@ game.resources = [
 
 
 	 //Background music. 
-	 {name: "song2", type: "audio", src: "sound/", channel : 1}
+	 {name: "music", type: "audio", src: "assets/", channel : 1}
 	 	
 
 	/* Sound effects. 
