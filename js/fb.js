@@ -79,18 +79,19 @@ window.fbAsyncInit = function() {
             var idx,
                 friends = response.data,
                 randomIndex,
-                selectedFriends = [],
                 friendList = $('#selectedFriendsPane ul');
+            window.selectedFriends = [];
             for (idx = 0; idx < 3; idx += 1) {
                 randomIndex = _.random(0, friends.length - 1);
-                selectedFriends.push(friends.splice(randomIndex, 1)[0]); // Extract one friend from the friend list and add to selectedFriends
+                window.selectedFriends.push(friends.splice(randomIndex, 1)[0]); // Extract one friend from the friend list and add to selectedFriends
             }
             $('#selectedFriendsPane h3').html('Selected friends:');
             friendList.empty();
-            _.each(selectedFriends, function (friend) {
+            _.each(window.selectedFriends, function (friend, index) {
                 console.log('Selected ' + friend.name);
-                friendList.append('<img src="http://graph.facebook.com/' + friend.id +
-                    '/picture?width=100&height=100" title="' + friend.name + '" />');
+                var src = 'http://graph.facebook.com/' + friend.id + '/picture?width=100&height=100';
+                friendList.append('<img src="' + src + '" title="' + friend.name + '" />');
+                $('#friend' + (index+1)).attr('src', src.replace(/100/g, '32'));
             });
         });
     }

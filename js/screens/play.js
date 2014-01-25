@@ -1,3 +1,5 @@
+var zombieInterval = 5000;
+
 game.PlayScreen = me.ScreenObject.extend({
 
 	hog : null,
@@ -6,6 +8,8 @@ game.PlayScreen = me.ScreenObject.extend({
     init: function() {
         // add our player entity in the entity pool
         me.entityPool.add("friend1", game.FriendEntity);
+        me.entityPool.add("friend2", game.FriendEntity);
+        me.entityPool.add("friend3", game.FriendEntity);
         me.entityPool.add("zombie1", game.ZombieEntity, true);
         me.entityPool.add("zombie2", game.ZombieEntity, true);
         me.entityPool.add("zombie3", game.ZombieEntity, true);
@@ -24,7 +28,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		this.hog = new (me.AnimationSheet.extend({
 			init: function() {
-				this.parent(e.gameX - (32/2), e.gameY - (32/2), me.loader.getImage('hog'), 32, 32);
+				this.parent(e.gameX - (64/2), e.gameY - (64/2), me.loader.getImage('hog'), 64, 64);
 				this.addAnimation('running', [0,1,2,3,4], 100);
 				this.setCurrentAnimation('running');
 				this.z = 1000;
@@ -57,6 +61,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		this.HUD = new game.HUD.Container();
 		me.game.world.addChild(this.HUD);
 
+        setTimeout("createZombieLoop()", zombieInterval);
 	},
 
 
@@ -68,3 +73,19 @@ game.PlayScreen = me.ScreenObject.extend({
 		me.game.world.removeChild(this.HUD);
 	}
 });
+
+function createZombieLoop() {
+    window.createZombie();
+
+    setTimeout("createZombieLoop()", zombieInterval);
+}
+
+window.createZombie = function () {
+	var group = me.game.currentLevel.getObjectGroups()[0];
+	var zombieObject = _.find(group.objects, function isZombie(object) {
+		return object.image === "zombie";
+	});
+	var entity = me.entityPool.newInstanceOf("zombie1", 416, 192, zombieObject);
+	entity.z = group.z;
+	me.game.world.addChild(entity);
+};

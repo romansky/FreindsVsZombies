@@ -16,6 +16,10 @@ game.FriendEntity = me.ObjectEntity.extend({
         this.parent(x, y, settings);
         console.log('FriendEntity.init, settings = ' + JSON.stringify(settings));
 
+        this.friendNumber = settings.name.replace('friend', '');
+        this.friendImage = $('#friend' + this.friendNumber);
+        this.melonCanvas = $('canvas');
+        this.friendImage.show();
         this.framesOffLadder = 21;
 
         this.collidable = true;
@@ -100,7 +104,9 @@ game.FriendEntity = me.ObjectEntity.extend({
 
      ------ */
     update: function() {
-        if (this.collide()) {
+        this.friendImage.css('left', this.pos.x + this.melonCanvas.offset().left);
+        this.friendImage.css('top', this.pos.y + this.melonCanvas.offset().top - 40);
+        if (this.collideType('zombie')) {
             if (!this.gameOver) {
                 alert('Friend killed! Game over!');
                 this.gameOver = true;
