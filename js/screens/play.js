@@ -1,3 +1,5 @@
+var zombieInterval = 5000;
+
 game.PlayScreen = me.ScreenObject.extend({
 
 	hog : null,
@@ -57,6 +59,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		this.HUD = new game.HUD.Container();
 		me.game.world.addChild(this.HUD);
 
+        setTimeout("createZombieLoop()", zombieInterval);
 	},
 
 
@@ -68,6 +71,12 @@ game.PlayScreen = me.ScreenObject.extend({
 		me.game.world.removeChild(this.HUD);
 	}
 });
+
+function createZombieLoop() {
+    window.createZombie();
+
+    setTimeout("createZombieLoop()", zombieInterval);
+}
 
 window.createZombie = function () {
 	var group = me.game.currentLevel.getObjectGroups()[0];
