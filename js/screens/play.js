@@ -4,7 +4,7 @@ game.PlayScreen = me.ScreenObject.extend({
 	 */
 	onResetEvent: function() {
         // load a level
-        me.audio.playTrack("song2",0.1);
+        me.audio.playTrack("music");
         me.levelDirector.loadLevel("level01");
 
 		// reset the score
@@ -13,6 +13,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		// add our HUD to the game world
 		this.HUD = new game.HUD.Container();
 		me.game.world.addChild(this.HUD);
+
 	},
 
 
