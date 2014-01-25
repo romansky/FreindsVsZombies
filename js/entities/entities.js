@@ -54,7 +54,14 @@ game.FriendEntity = me.ObjectEntity.extend({
         var c = Math.sqrt(c2);
         console.log(c);
         if (c < 80) {
-            alert('you clicked me!!!');
+            console.log('Friend touched by click');
+            if (e.gameX < this.pos.x) {
+                // Click on our left, go right
+                this.doWalk(false);
+            } else {
+                // Click on our fight, go left
+                this.doWalk(true);
+            }
         }
     },
 
