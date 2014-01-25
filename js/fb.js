@@ -10,7 +10,6 @@
 
 window.fbAsyncInit = function() {
 
-	console.log(FB);
     FB.init({
         appId: '611076678966646',
         status: true, // check login status
@@ -68,8 +67,8 @@ window.fbAsyncInit = function() {
 
     function onConnected() {
         $('#fbLogin').hide();
-        $('#logout').show();
-        $('#selectedFriendsPane h3').html('Selecting friends...');
+//        $('#logout').show();
+//        $('#selectedFriendsPane h3').html('Selecting friends...');
         console.log('Welcome!  Fetching your information.... ');
         selectFriends();
     }
@@ -97,12 +96,17 @@ window.fbAsyncInit = function() {
     }
 
     $('#fbLogin .button').click(function () {
-        FB.init({
-            appId: '611076678966646',
-            status: true, // check login status
-            cookie: true, // enable cookies to allow the server to access the session
-            xfbml: true  // parse XFBML
-        });
+		FB.login(function(response) {
+			if (response.authResponse) {
+				console.log('Welcome!  Fetching your information.... ');
+				FB.api('/me', function(response) {
+					console.log('Good to see you, ' + response.name + '.');
+					onConnected();
+				});
+			} else {
+				console.log('User cancelled login or did not fully authorize.');
+			}
+		});
     });
     // Execute some code here
 };
