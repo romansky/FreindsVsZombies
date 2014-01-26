@@ -40,6 +40,10 @@ left: 35%;
 top: 200px;
 }
 
+#fbLogin {
+    display: none;
+}
+
 #selectedFriendsPane h3 {
     color: black;
 }

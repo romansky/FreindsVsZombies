@@ -19,6 +19,10 @@ game.PlayScreen = me.ScreenObject.extend({
     },
 
 	onStartEvent: function (e) {
+		if (me.state.current() !== this) {
+			// We're still in title screen, ignore click
+			return;
+		}
 
 		if (this.hog) {
 			me.game.world.removeChild(this.hog);
@@ -35,11 +39,13 @@ game.PlayScreen = me.ScreenObject.extend({
 			}
 		}));
 
-		var that = this;
+		var playScreen = this;
 		this.hogTo = setTimeout(function(){
-			me.game.world.removeChild(that.hog);
-			that.hog = null;
-			that.hogTo = null;
+			if (playScreen.hog && me.game.world.hasChild(playScreen.hog)) {
+				me.game.world.removeChild(playScreen.hog);
+				playScreen.hog = null;
+				playScreen.hogTo = null;
+			}
 		},800);
 
 		me.game.world.addChild(this.hog);

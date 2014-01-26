@@ -56,24 +56,42 @@ game.TitleScreen = me.ScreenObject.extend({
 
     // update function
     update: function () {
-        // enter pressed ?
-        if (me.input.isKeyPressed('enter')) {
-
+        var titleScreen = this;
+        if (window.FB && !titleScreen.fbConnected && !titleScreen.waitingForResponse) {
+            titleScreen.waitingForResponse = true;
 			FB.getLoginStatus(function(response) {
 				if (response.status == "connected") {
-					$('#selectedFriendsPane').hide();
-					me.state.change(me.state.PLAY);
+                    titleScreen.fbConnected = true;
+                    me.input.registerPointerEvent(
+                        'mousedown', 
+                        me.game.viewport, 
+                        titleScreen.onClick.bind(titleScreen)
+                    );
 				}
+                titleScreen.waitingForResponse = false;
 			});
         }
         return true;
+    },
+
+    onClick: function () {
+        if (me.state.current() !== this) {
+            // We're still in title screen, ignore click
+            return;
+        }
+        $('#selectedFriendsPane').hide();
+        me.state.change(me.state.PLAY);
     },
 
     // draw function
     draw: function (context) {
         context.drawImage(this.title, 0, 0);
         this.font.draw(context, "SAVE YOUR FRIENDS", 150, 100);
-        this.font.draw(context, "PRESS ENTER TO PLAY", 120, 380);
+        if (this.fbConnected) {
+            this.font.draw(context, "CLICK TO PLAY", 120, 380);
+        } else {
+            $('#fbLogin').show();
+        }
         // this.scrollerfont.draw(context, this.scroller, this.scrollerpos, 440);
     },
 
