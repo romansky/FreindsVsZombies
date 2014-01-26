@@ -1,7 +1,7 @@
 /*------------------- 
  a friend entity
  -------------------------------- */
-window.helicopterDoorSize = 0;
+window.friendsRescued = 0;
 
 game.FriendEntity = me.ObjectEntity.extend({
 
@@ -15,6 +15,7 @@ game.FriendEntity = me.ObjectEntity.extend({
         // call the constructor
         this.parent(x, y, settings);
         console.log('FriendEntity.init, settings = ' + JSON.stringify(settings));
+        window.friendsRescued = 0;
 
         this.friendNumber = settings.name.replace('friend', '');
         this.friendImage = $('#friend' + this.friendNumber);
@@ -117,11 +118,14 @@ game.FriendEntity = me.ObjectEntity.extend({
         if (this.safe) {
             return;
         }
-        if (this.pos.y < 70 && Math.abs(this.pos.x - 540) <= window.helicopterDoorSize) {
+        if (this.pos.y < 70 && Math.abs(this.pos.x - 540) <= window.friendsRescued * 10) {
             // We're at the helicopter
             console.log('a friend reached the helicopter');
             this.safe = true;
-            window.helicopterDoorSize += 10; // So the next friend stops a bit sooner
+            window.friendsRescued += 1; // So the next friend stops a bit sooner
+            if (window.friendsRescued === 3) {
+                alert('You rock ! ! !');
+            }
             return;
         }
     
