@@ -40,6 +40,10 @@ left: 35%;
 top: 200px;
 }
 
+#selectedFriendsPane h3 {
+    color: black;
+}
+
 #selectedFriendsPane ul img {
     border-radius: 60%;
     padding: 20px;
